@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Ex2</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h3>変換前のコード</h3>
+    <form method="post" action=''>
+      <textarea id='before-text' name='text' type="text"></textarea>
+    </form>
+  </div>
+
+  <div class="container">
+    <h3>変換後のコード</h3>
+    <textarea id='after-text' type="text"></textarea>
+  </div>
+
+  <script>
+    $(function () {
+      $("#before-text").bind('keyup change', function () {
+        $.post({
+          url: 'text.php',
+          name: 'text',
+          data: {
+            text: $("#before-text").val(),
+          },
+          dataType: "text",
+          scriptCharset: 'utf-8'
+        }).then(function (data) {
+          $("#after-text").text(data);
+        },
+          function (XMLHttpRequest, textStatus, errorThrown) {
+            alert(errorThrown);
+          }
+        );
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+
+
